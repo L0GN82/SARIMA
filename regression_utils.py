@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import pandas as pd
-from sklearn.metrics import _regression
+from sklearn.metrics import mean_squared_error
 """ This module will house utility functions that need to be created for 
 simplifying views of data models and results. It is assumed that all parameters passed
 will either be numpy arrays, pandas Series, or pandas DataFrames. """
@@ -17,7 +17,7 @@ def regressionSummary(y_actual, y_predicted, x_df):
 
     metrics = [
         ('Mean Error (ME): ', sum(y_residual) / len(y_residual)),
-        ('Root Mean Squared Error (RMSE): ', math.sqrt(_regression.mean_squared_error(
+        ('Root Mean Squared Error (RMSE): ', math.sqrt(mean_squared_error(
                                                        y_actual,y_predicted))),
         ('Mean Absolute Error (MAE): ', sum(abs(y_residual)) / len(y_residual)),
         ('Mean Percent Error (MPE): ', 100 * sum(y_residual / y_actual) / len(y_residual)),
