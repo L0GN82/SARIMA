@@ -4,8 +4,9 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.tsa.stattools import adfuller
 import matplotlib.pyplot as plt
 
-
-
+#The goal of this script is to access the excel data and isolate the columns for the SARIMA model.
+#Included is a stationarity function
+#Training an Validation data are also created (This is unadjusted data!!!)
 
 
 df = pd.read_excel(r"C:\Users\LoganFrideley\East Texas Salt Water Disposal Company\Finance - Documents\Water Disposal History.xlsx")
@@ -30,6 +31,8 @@ monthly_water_vols = monthly_water_vols.loc[:, ['Date', 'Water Volume']]
 # This function checks if the data has 'stationarity'
 #Also checks and prints the p_value
 # Uses the augmented Dickey-Fuller test
+
+
 def check_stationarity(timeseries):
     result = adfuller(timeseries, autolag = 'AIC')
     p_value = result[1]
@@ -54,24 +57,6 @@ validation = subset[validation_mask]
 
 training_data = np.asarray(training['Water Volume'])
 
-#SARIMA MODEL Parameters
-p, d, q = 1, 1, 1
-P, D, Q, s = 1, 1, 1, 12
-
-model = SARIMAX(training_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
-results = model.fit()
-
-forecast_periods = 12
-forecast = results.forecast(forecast_periods)
-
-plt.figure(figsize=(10, 6))
-plt.plot(training_data, label='Observed')
-plt.plot(forecast, label='Forecast', color='red')
-plt.title("Disposal Volume Forecast")
-plt.xlabel("Date")
-plt.ylabel("Volume")
-plt.legend()
-plt.show()
 
 
 
