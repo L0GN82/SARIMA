@@ -20,7 +20,7 @@ ax.plot(oil_prod['Date'], oil_prod['Barrels'])
 ax.set_xlabel('Date')
 ax.set_ylabel('Oil Production')
 ax.set_title('East Texas Oil Field Production')
-
+plt.show()
 
 #figure for the oil_price dataframe
 fig, ax = plt.subplots(figsize=(15,8), layout = 'constrained')
@@ -31,4 +31,6 @@ ax.set_title('Crude Oil Prices')
 fig.autofmt_xdate()
 
 
-#plt.show()
+plt.show()
+
+print(oil_prod.head())
