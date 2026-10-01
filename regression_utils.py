@@ -54,11 +54,17 @@ def adj_R_squared(y_actual, y_predicted, x_df):
 
      This gives us adj_R_squared = 1 - ( ((1 - R^2) * (n - 1)) / n - p - 1) where n = num observations and
                                                                                   p = num variables """
+
     r_squared = R_squared(y_actual, y_predicted)
+    
     n = len(y_actual)
     p = x_df.shape[1]
-
+    
+    if n <= p + 1:
+        raise ValueError("Not enough observations for the number of predictors.")
+    
     adj_r = 1 - ((1 - r_squared) * (n - 1) / (n - p - 1))
+    
     return adj_r
 
 
